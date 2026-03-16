@@ -171,11 +171,52 @@ public interface DeliveryTimeStrategy {
 5. Write FlexibleSearch queries: products without warranties, products by price range, products with specific categories
 
 ## Self-Check
-- What's the difference between a Service and a Facade?
-- Why use Populators instead of direct conversion?
-- When does a ValidateInterceptor run vs PrepareInterceptor?
-- How do you override an existing service?
-- Can interceptors be ordered? How?
+
+1. **What's the difference between a Service and a Facade?**
+   <details>
+   <summary>Answer</summary>
+   A Service contains core business logic and works with Models (persistent objects). A Facade orchestrates one or more services and converts Models into DTOs (Data Transfer Objects) for the presentation layer. Facades should never be called by other services — they exist solely to serve controllers/API endpoints. Services don't know about DTOs; Facades don't contain business logic.
+   </details>
+
+2. **Why use Populators instead of direct conversion?**
+   <details>
+   <summary>Answer</summary>
+   Populators follow the Single Responsibility Principle — each Populator fills a specific part of a DTO. This makes them independently testable, reusable across different Facades, and easy to extend. You can add a custom Populator to an existing Converter's populator list without modifying existing code. Direct conversion methods tend to become monolithic and hard to extend.
+   </details>
+
+3. **When does a ValidateInterceptor run vs PrepareInterceptor?**
+   <details>
+   <summary>Answer</summary>
+   PrepareInterceptors run **before** validation — they modify the model (e.g., generate a code, set default values, normalize data). ValidateInterceptors run **after** prepare — they check business rules and throw `InterceptorException` if validation fails, preventing the save. The order is: Prepare → Validate → Save (persist to DB).
+   </details>
+
+4. **How do you override an existing service?**
+   <details>
+   <summary>Answer</summary>
+   Use the alias pattern in your extension's `*-spring.xml`:
+   ```xml
+   <alias name="myCustomProductService" alias="productService"/>
+   <bean id="myCustomProductService"
+         class="com.mycompany.core.services.impl.MyProductService"
+         parent="defaultProductService">
+   </bean>
+   ```
+   The `parent` attribute lets you inherit the default implementation. The alias redirects all `productService` references to your bean, while `defaultProductService` remains available.
+   </details>
+
+5. **Can interceptors be ordered? How?**
+   <details>
+   <summary>Answer</summary>
+   Yes. When registering an interceptor via `InterceptorMapping` in Spring XML, you can set the `order` property (integer). Lower values execute first. Example:
+   ```xml
+   <bean id="myInterceptorMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+       <property name="interceptor" ref="myValidateInterceptor"/>
+       <property name="typeCode" value="Product"/>
+       <property name="order" value="100"/>
+   </bean>
+   ```
+   If no order is specified, the interceptor runs with default priority. This is useful when multiple interceptors operate on the same type.
+   </details>
 
 ---
 **Previous**: [← 04 - Installation](../04-installation/README.md) | **Next**: [06 - ImpEx →](../06-impex/README.md)

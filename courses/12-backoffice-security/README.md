@@ -144,11 +144,76 @@ INSERT_UPDATE ConsentTemplate;id[unique=true];name;description;version;baseSite(
 5. Set up consent templates for GDPR compliance
 
 ## Self-Check
-- How does Backoffice differ from HAC?
-- What is a search restriction and how does it enforce data visibility?
-- How do you add custom fields to the Backoffice editor?
-- What is the `$START_USERRIGHTS` / `$END_USERRIGHTS` block?
-- How does Commerce handle GDPR data erasure?
+
+1. **How does Backoffice differ from HAC?**
+   <details>
+   <summary>Answer</summary>
+   - **Backoffice** is the business user administration tool for managing products, orders, catalogs, customers, CMS content, and other business data. It has a rich, widget-based UI built on the ZK framework, supports customization (custom editors, widgets, workflows), and is role-based so different users see different views. Business users (merchandisers, customer service, content managers) use Backoffice daily.
+   - **HAC** (Hybris Administration Console) is a developer/admin tool for technical operations: running ImpEx, FlexibleSearch, Groovy scripts, monitoring JVM/cache/threads, triggering system updates, managing CronJobs, and viewing logs. HAC should only be accessible to developers and system administrators.
+   
+   In short: Backoffice = business operations, HAC = technical operations.
+   </details>
+
+2. **What is a search restriction and how does it enforce data visibility?**
+   <details>
+   <summary>Answer</summary>
+   A search restriction is a filter automatically appended to FlexibleSearch queries at runtime. It restricts which items a user or user group can see. For example:
+   ```impex
+   INSERT_UPDATE SearchRestriction; code[unique=true]; principal(uid); restrictedType(code); query; active
+   ; customerOrderRestriction ; customergroup ; Order ; {user} = ?session.user ; true
+   ```
+   This ensures customers only see their own orders — whenever a FlexibleSearch for `Order` runs in the context of a user in `customergroup`, the clause `{user} = ?session.user` is automatically appended. Search restrictions enforce data-level security transparently — services and DAOs don't need to include these filters manually. They can be set per principal (user/group) and per type.
+   </details>
+
+3. **How do you add custom fields to the Backoffice editor?**
+   <details>
+   <summary>Answer</summary>
+   Modify the Backoffice configuration XML (`backoffice-config.xml`) in your extension's `backoffice/resources/` folder:
+   ```xml
+   <context type="Product" component="editor-area" module="myextension">
+       <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea">
+           <editorArea:tab name="hmc.properties" position="0">
+               <editorArea:section name="hmc.basic">
+                   <editorArea:attribute qualifier="myCustomAttribute"/>
+               </editorArea:section>
+           </editorArea:tab>
+       </editorArea:editorArea>
+   </context>
+   ```
+   The `qualifier` must match an attribute defined in `items.xml`. You can control positioning with `position`, group fields into sections, and create entirely new tabs. After changes, rebuild and restart (or use Backoffice's "Reset Everything" in Cockpit NG config).
+   </details>
+
+4. **What is the `$START_USERRIGHTS` / `$END_USERRIGHTS` block?**
+   <details>
+   <summary>Answer</summary>
+   It's a special ImpEx syntax for managing access rights (permissions) in bulk:
+   ```impex
+   $START_USERRIGHTS
+   Type      ; uid[unique=true] ; memberOfGroups ; password ; allTypes ; Product ; Order
+   UserGroup ; myCustomGroup    ;                ;          ; +       ; +r+w    ; +r
+   $END_USERRIGHTS
+   ```
+   This grants the `myCustomGroup` user group read+write access to `Product` and read-only access to `Order`. Permission flags:
+   - `+r` = grant read, `-r` = deny read
+   - `+w` = grant write (change), `-w` = deny write
+   - `+c` = grant create, `+d` = grant delete
+   - `+` = grant all CRUD
+   
+   This is more readable than creating individual `AccessRight` entries manually and is the standard way to configure permissions in Commerce projects.
+   </details>
+
+5. **How does Commerce handle GDPR data erasure?**
+   <details>
+   <summary>Answer</summary>
+   SAP Commerce provides a GDPR framework with the `gdpr` and `customercleanup` extensions:
+   - **Right to Erasure** — `CustomerCleanupCronJob` anonymizes customer data by replacing personal information (name, email, addresses) with anonymized values while retaining the record for order history integrity
+   - **Consent Management** — `ConsentTemplate` and `ConsentModel` track customer consent for data processing. Consent can be given/withdrawn via the storefront
+   - **Data Export** — customers can request a full export of their personal data (portability)
+   - **Retention Rules** — configurable rules define how long personal data is retained before automatic cleanup
+   - **Audit Trail** — changes to sensitive data are logged for compliance
+   
+   The framework doesn't delete records outright (to maintain referential integrity) — it anonymizes PII fields so the data is no longer personally identifiable.
+   </details>
 
 ---
 **Previous**: [← 11 - B2B Commerce](../11-b2b-commerce/README.md)

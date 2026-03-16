@@ -119,11 +119,55 @@ public class MyPageController extends AbstractPageController {
 5. Configure OAuth2 client credentials for a mobile app
 
 ## Self-Check
-- What is OCC and why is it important for headless commerce?
-- How does Spartacus communicate with Commerce?
-- What's the role of SmartEdit?
-- How do you add a custom REST endpoint to OCC?
-- What are CMS components, slots, and pages?
+
+1. **What is OCC and why is it important for headless commerce?**
+   <details>
+   <summary>Answer</summary>
+   OCC (Omni Commerce Connect) is the RESTful API layer of SAP Commerce. It exposes all commerce functionality (products, carts, checkout, users, orders) as REST endpoints. It's essential for headless commerce because it decouples the frontend from the backend — any frontend (Spartacus, mobile app, kiosk, third-party SPA) can consume OCC APIs. This enables multi-channel experiences from a single Commerce backend.
+   </details>
+
+2. **How does Spartacus communicate with Commerce?**
+   <details>
+   <summary>Answer</summary>
+   Spartacus is an Angular-based SPA that communicates with SAP Commerce exclusively through OCC REST APIs over HTTP/HTTPS. It uses OAuth2 for authentication (client credentials for anonymous, resource owner password for logged-in users). Spartacus never directly accesses the database or Java services — all data flows through OCC endpoints returning JSON. Server-Side Rendering (SSR) via Node.js is used for SEO and initial page load performance.
+   </details>
+
+3. **What's the role of SmartEdit?**
+   <details>
+   <summary>Answer</summary>
+   SmartEdit is a WYSIWYG content management tool that allows business users to edit CMS content directly on the storefront in a visual, drag-and-drop manner. It works by loading the storefront in an iframe and overlaying editing controls. Content managers can: edit page content, rearrange CMS components in slots, create personalization variations, preview changes before publishing, and manage content across catalog versions (Staged → Online synchronization).
+   </details>
+
+4. **How do you add a custom REST endpoint to OCC?**
+   <details>
+   <summary>Answer</summary>
+   Create a Spring MVC controller in your OCC extension (e.g., `myextensionocc`), annotate it with `@RestController` and `@RequestMapping`, and use Commerce Facades to fetch data:
+   ```java
+   @RestController
+   @RequestMapping("/{baseSiteId}/myresource")
+   public class MyResourceController extends BaseController {
+       @Resource
+       private MyFacade myFacade;
+       
+       @GetMapping("/{code}")
+       public MyDataWsDTO getResource(@PathVariable String code) {
+           MyData data = myFacade.getByCode(code);
+           return dataMapper.map(data, MyDataWsDTO.class);
+       }
+   }
+   ```
+   Register it in your extension's web Spring context. Use WsDTO classes for the API response (not internal Data DTOs directly).
+   </details>
+
+5. **What are CMS components, slots, and pages?**
+   <details>
+   <summary>Answer</summary>
+   - **Pages** (`ContentPage`, `ProductPage`, `CategoryPage`) — represent full web pages with a layout template
+   - **Slots** (`ContentSlot`) — named placeholder areas within a page template (e.g., "HeaderSlot", "BodySlot", "FooterSlot")  
+   - **Components** (`CMSComponent` subtypes) — individual UI elements placed in slots (e.g., `BannerComponent`, `ProductCarouselComponent`, `CMSParagraphComponent`)
+   
+   The hierarchy is: Page → Template → Slots → Components. Pages reference a PageTemplate, templates define which slots are available, and components are placed into slots. This structure is managed via ImpEx or SmartEdit and is catalog-version-aware (Staged/Online).
+   </details>
 
 ---
 **Previous**: [← 06 - ImpEx](../06-impex/README.md) | **Next**: [08 - Build & Deployment →](../08-build-deployment/README.md)

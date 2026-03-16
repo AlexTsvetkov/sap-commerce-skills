@@ -145,11 +145,48 @@ refundEntry.setReturnRequest(returnRequest);
 5. Create a promotion: 10% off for orders over $100
 
 ## Self-Check
-- What is a business process in SAP Commerce?
-- How does fraud checking work?
-- What are consignments and how do they relate to orders?
-- How do you customize the order process flow?
-- What's the difference between payment authorization and capture?
+
+1. **What is a business process in SAP Commerce?**
+   <details>
+   <summary>Answer</summary>
+   A business process is a stateful, event-driven workflow defined in an XML process definition. It models multi-step operations like order fulfillment, returns, or approvals. Each process has: states (action nodes, wait nodes, split/join nodes), transitions between states, and action beans (Spring beans that execute logic at each step). The Business Process Engine persists process state to the database, making processes durable across server restarts. Processes are triggered by events and can wait asynchronously for external events (e.g., payment confirmation).
+   </details>
+
+2. **How does fraud checking work?**
+   <details>
+   <summary>Answer</summary>
+   Fraud checking is a step in the order process that evaluates orders against configurable fraud rules before payment capture. The default implementation uses `FraudService` with a list of `FraudSymptom` providers that score risk factors (e.g., mismatched billing/shipping addresses, high-value orders, blacklisted IPs). Each symptom contributes a score, and if the total exceeds a threshold, the order is flagged for manual review or rejected. The fraud check runs after payment authorization but before capture. You can integrate external fraud providers (e.g., Accertify, Riskified) by implementing custom `FraudServiceProvider`.
+   </details>
+
+3. **What are consignments and how do they relate to orders?**
+   <details>
+   <summary>Answer</summary>
+   A consignment represents a shipment — a group of order entries fulfilled from a single warehouse/location. One order can have multiple consignments (split shipment). Each consignment has its own status lifecycle (READY, SHIPPED, DELIVERED) and tracking information. The warehousing module creates consignments during the sourcing step by allocating order entries to fulfillment locations based on availability and sourcing rules. Consignment entries reference original order entries with the allocated quantity.
+   </details>
+
+4. **How do you customize the order process flow?**
+   <details>
+   <summary>Answer</summary>
+   Customize the process definition XML (e.g., `order-process.xml`) in your extension's `resources/processes/` folder:
+   1. Copy the OOTB process definition to your extension
+   2. Modify the XML — add/remove/reorder nodes, add custom action nodes
+   3. Implement custom action beans extending `AbstractProceduralAction` or `AbstractAction`
+   4. Register your action beans in Spring XML
+   5. Point to your custom process definition via properties:
+   ```properties
+   order.process.definition.name=myproject-order-process
+   ```
+   Each action returns a transition string (e.g., "OK", "NOK") that determines the next state in the process flow.
+   </details>
+
+5. **What's the difference between payment authorization and capture?**
+   <details>
+   <summary>Answer</summary>
+   - **Authorization** — reserves funds on the customer's payment method (credit card, PayPal) without actually transferring money. Happens at checkout/order placement. The auth hold guarantees funds are available but no charge appears on the customer's statement. Authorizations expire (typically 7-30 days).
+   - **Capture** — actually charges the customer and transfers funds. Happens after order validation, fraud check, and often after shipping. You can capture the full amount or partial amounts (e.g., per consignment).
+   
+   This two-step process protects both merchant and customer — you only charge for what you actually ship, and you can cancel the auth if the order can't be fulfilled.
+   </details>
 
 ---
 **Previous**: [← 09 - Performance](../09-performance/README.md) | **Next**: [11 - B2B Commerce →](../11-b2b-commerce/README.md)

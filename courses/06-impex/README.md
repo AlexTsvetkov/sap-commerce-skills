@@ -106,11 +106,51 @@ INSERT_UPDATE Product;code;name[lang=en];price
 5. Use scripting to generate sequential product codes during import
 
 ## Self-Check
-- What's the difference between INSERT and INSERT_UPDATE?
-- How do you reference a composite key in ImpEx?
-- What does `[unique=true]` do?
-- How do you import media/images via ImpEx?
-- What is a translator and when do you need one?
+
+1. **What's the difference between INSERT and INSERT_UPDATE?**
+   <details>
+   <summary>Answer</summary>
+   `INSERT` creates new items only — if an item with the same unique keys already exists, it throws an error. `INSERT_UPDATE` creates the item if it doesn't exist, or updates it if it does (upsert). `UPDATE` only modifies existing items and fails if the item is not found. In practice, `INSERT_UPDATE` is the most commonly used mode because it's idempotent — safe to run multiple times.
+   </details>
+
+2. **How do you reference a composite key in ImpEx?**
+   <details>
+   <summary>Answer</summary>
+   Use dot notation to traverse references. For example, `CatalogVersion` has a composite unique key of `catalog` + `version`:
+   ```impex
+   INSERT_UPDATE Product; code[unique=true]; catalogVersion(catalog(id), version)[unique=true]
+   ; PROD-001 ; myStoreCatalog:Staged
+   ```
+   The parentheses define which attributes uniquely identify the referenced type. The colon `:` separates the values for the composite key.
+   </details>
+
+3. **What does `[unique=true]` do?**
+   <details>
+   <summary>Answer</summary>
+   `[unique=true]` marks a column as part of the item's lookup key for ImpEx processing. During `INSERT_UPDATE`, the ImpEx engine uses all `[unique=true]` columns to find an existing item. If found, it updates; if not, it inserts. It does NOT create a database unique constraint — it's only used during ImpEx import resolution. Multiple columns can be marked `[unique=true]` to form a composite lookup key.
+   </details>
+
+4. **How do you import media/images via ImpEx?**
+   <details>
+   <summary>Answer</summary>
+   Use the `@media` or `jar:` prefix to reference files. Two common approaches:
+   ```impex
+   # From a zip file uploaded with the ImpEx
+   INSERT_UPDATE Media; code[unique=true]; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]
+   ; logo ; logo.png
+   
+   # From the classpath (extension resources)
+   INSERT_UPDATE Media; code[unique=true]; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]; mime
+   ; logo ; jar:com.mycompany.constants.MyExtensionConstants&/myextension/import/images/logo.png ; image/png
+   ```
+   The media file must be accessible in the import context (zip, classpath, or hotfolder).
+   </details>
+
+5. **What is a translator and when do you need one?**
+   <details>
+   <summary>Answer</summary>
+   A translator is a class that converts between ImpEx CSV text values and the actual Java/model attribute types. You need one when the default type conversion doesn't handle your case. Common scenarios: importing media binaries (`MediaDataTranslator`), importing special date formats, importing encrypted passwords, or handling custom attribute types. Custom translators implement `AbstractValueTranslator` and override `importValue()` / `exportValue()` methods.
+   </details>
 
 ---
 **Previous**: [← 05 - Service Layer](../05-service-layer/README.md) | **Next**: [07 - Storefront & OCC →](../07-storefront-occ/README.md)

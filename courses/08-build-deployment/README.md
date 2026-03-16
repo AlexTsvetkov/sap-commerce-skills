@@ -143,11 +143,49 @@ pipeline {
 4. Create a CI/CD pipeline that builds, tests, and deploys to a dev environment
 
 ## Self-Check
-- What's the difference between `ant all` and `ant production`?
-- How does CCv2 handle database migrations?
-- What are aspects and why are they important?
-- How do cloud properties override each other?
-- What happens during a rolling deployment?
+
+1. **What's the difference between `ant all` and `ant production`?**
+   <details>
+   <summary>Answer</summary>
+   `ant all` is used for local development — it compiles all source code, generates model classes, builds web applications, and prepares the system for running locally. It includes debug information and all development tooling. `ant production` creates an optimized production deployment package — it pre-compiles everything, creates a distributable archive (ZIP), strips debug info, and packages only what's needed for deployment. On CCv2, `ant production` is automatically executed during the cloud build process.
+   </details>
+
+2. **How does CCv2 handle database migrations?**
+   <details>
+   <summary>Answer</summary>
+   CCv2 runs a **system update** automatically during deployment. When a new build is deployed to an environment, the platform compares the current type system definition (from `items.xml` files) with the existing database schema. It then generates and executes DDL statements to add new tables, columns, and indexes. It does NOT remove columns/tables (to prevent data loss). For data migrations, you use ImpEx scripts in `essentialdata` or `projectdata` files, or custom update hooks via `SystemSetup` annotations.
+   </details>
+
+3. **What are aspects and why are they important?**
+   <details>
+   <summary>Answer</summary>
+   Aspects define different pod types (deployment units) in CCv2. Each aspect specifies which web applications it runs and can be independently scaled. Common aspects:
+   - **accstorefront** — serves the storefront and OCC API (scales for traffic)
+   - **backoffice** — runs Backoffice admin UI (typically 1 pod)
+   - **backgroundProcessing** — runs CronJobs, task engine, HAC (typically 1 pod)
+   
+   Aspects are important because they enable separation of concerns — storefront pods can scale horizontally for traffic without scaling the backoffice, and background jobs don't compete for resources with customer-facing requests.
+   </details>
+
+4. **How do cloud properties override each other?**
+   <details>
+   <summary>Answer</summary>
+   Properties in CCv2 follow a precedence order (later overrides earlier):
+   1. Platform defaults (built into extensions)
+   2. Extension `project.properties` files
+   3. `manifest.json` → `useConfig.properties` files (in order listed)
+   4. Aspect-specific properties (applied only to that aspect)
+   5. Environment-specific properties set via Cloud Portal
+   6. Service properties (managed by SAP — e.g., DB connection)
+   
+   This allows you to define common properties at the base level and override per aspect or environment (e.g., different cache settings for storefront vs. backgroundProcessing).
+   </details>
+
+5. **What happens during a rolling deployment?**
+   <details>
+   <summary>Answer</summary>
+   CCv2 uses rolling deployments to minimize downtime: (1) New pods with the updated build are started alongside existing pods. (2) Once new pods pass health checks, traffic is gradually routed to them. (3) A system update runs on one pod (typically backgroundProcessing) to update the database schema. (4) Old pods are terminated. During this process, the storefront remains available. There can be a brief period where old and new code run simultaneously, so changes must be backward-compatible. For breaking changes, a "maintenance mode" deployment with downtime may be required.
+   </details>
 
 ---
 **Previous**: [← 07 - Storefront & OCC](../07-storefront-occ/README.md) | **Next**: [09 - Performance & Caching →](../09-performance/README.md)
