@@ -1,1 +1,14 @@
+# IntelliJ IDEA
 .idea/
+*.iml
+*.iws
+*.ipr
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor backups
+*~
+*.swp
+*.swo
