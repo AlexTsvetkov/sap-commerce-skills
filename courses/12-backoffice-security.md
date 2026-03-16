@@ -216,9 +216,9 @@ INSERT_UPDATE ConsentTemplate;id[unique=true];name;description;version;baseSite(
    </details>
 
 ---
-**Previous**: [← 11 - B2B Commerce](../11-b2b-commerce/README.md)
+**Previous**: [← 11 - B2B Commerce](11-b2b-commerce.md)
 
 ---
 
 ## 🎓 Course Catalog Complete
-Congratulations! You've completed all 12 courses. See the [Training Project](../../training-project/README.md) for hands-on practice.
+Congratulations! You've completed all 12 courses. See the [Training Project](../training-project/README.md) for hands-on practice.

@@ -6,7 +6,7 @@ The Type System is the heart of SAP Commerce. It defines the data model, generat
 
 **Duration**: 10-12 hours  
 **Level**: Intermediate  
-**Prerequisites**: [Course 01: Architecture](../01-architecture/README.md), Java basics, XML
+**Prerequisites**: [Course 01: Architecture](01-architecture.md), Java basics, XML
 
 ---
 
@@ -1109,5 +1109,5 @@ Using HAC:
 
 ---
 
-**Previous Course**: [← 01 - Architecture](../01-architecture/README.md)  
-**Next Course**: [03 - Extensions & AddOns →](../03-extensions/README.md)
+**Previous Course**: [← 01 - Architecture](01-architecture.md)  
+**Next Course**: [03 - Extensions & AddOns →](03-extensions.md)

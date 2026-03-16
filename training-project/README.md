@@ -24,7 +24,7 @@ You will build **"TechMart"** — a B2C electronics webshop with:
 ---
 
 ## Phase 1: Environment Setup (4-6 hours)
-*Maps to: [Course 04 - Installation](../courses/04-installation/README.md)*
+*Maps to: [Course 04 - Installation](../courses/04-installation.md)*
 
 ### Steps
 
@@ -99,7 +99,7 @@ You will build **"TechMart"** — a B2C electronics webshop with:
 ---
 
 ## Phase 2: Data Model (6-8 hours)
-*Maps to: [Course 02 - Type System](../courses/02-type-system/README.md)*
+*Maps to: [Course 02 - Type System](../courses/02-type-system.md)*
 
 ### Steps
 
@@ -247,7 +247,7 @@ You will build **"TechMart"** — a B2C electronics webshop with:
 ---
 
 ## Phase 3: Services & Business Logic (8-10 hours)
-*Maps to: [Course 05 - Service Layer](../courses/05-service-layer/README.md)*
+*Maps to: [Course 05 - Service Layer](../courses/05-service-layer.md)*
 
 ### Steps
 
@@ -280,7 +280,7 @@ You will build **"TechMart"** — a B2C electronics webshop with:
 ---
 
 ## Phase 4: Data Import (4-6 hours)
-*Maps to: [Course 06 - ImpEx](../courses/06-impex/README.md)*
+*Maps to: [Course 06 - ImpEx](../courses/06-impex.md)*
 
 ### Steps
 
@@ -314,7 +314,7 @@ INSERT_UPDATE ElectronicsProduct;code[unique=true];name[lang=$lang];techCategory
 ---
 
 ## Phase 5: Search & Solr (4-6 hours)
-*Maps to: [Course 09 - Performance](../courses/09-performance/README.md)*
+*Maps to: [Course 09 - Performance](../courses/09-performance.md)*
 
 1. Configure Solr indexed type for `ElectronicsProduct`
 2. Add facets: `techCategory`, `price`, `screenSize`, `ramGB`
@@ -325,7 +325,7 @@ INSERT_UPDATE ElectronicsProduct;code[unique=true];name[lang=$lang];techCategory
 ---
 
 ## Phase 6: OCC API & Storefront (8-10 hours)
-*Maps to: [Course 07 - Storefront & OCC](../courses/07-storefront-occ/README.md)*
+*Maps to: [Course 07 - Storefront & OCC](../courses/07-storefront-occ.md)*
 
 1. Create custom OCC endpoint for electronics product details (with specs)
 2. Create OCC endpoint for product reviews (GET, POST)
@@ -336,7 +336,7 @@ INSERT_UPDATE ElectronicsProduct;code[unique=true];name[lang=$lang];techCategory
 ---
 
 ## Phase 7: Backoffice & Admin (4-6 hours)
-*Maps to: [Course 12 - Backoffice & Security](../courses/12-backoffice-security/README.md)*
+*Maps to: [Course 12 - Backoffice & Security](../courses/12-backoffice-security.md)*
 
 1. Add custom editor tab for `ElectronicsProduct` showing specifications
 2. Add review management view with approve/reject actions
@@ -346,7 +346,7 @@ INSERT_UPDATE ElectronicsProduct;code[unique=true];name[lang=$lang];techCategory
 ---
 
 ## Phase 8: Cloud Deployment (4-6 hours)
-*Maps to: [Course 08 - Build & Deployment](../courses/08-build-deployment/README.md)*
+*Maps to: [Course 08 - Build & Deployment](../courses/08-build-deployment.md)*
 
 1. Create `manifest.json` for CCv2
 2. Set up cloud properties for dev/staging/prod

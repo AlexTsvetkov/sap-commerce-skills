@@ -219,4 +219,4 @@ public interface DeliveryTimeStrategy {
    </details>
 
 ---
-**Previous**: [← 04 - Installation](../04-installation/README.md) | **Next**: [06 - ImpEx →](../06-impex/README.md)
+**Previous**: [← 04 - Installation](04-installation.md) | **Next**: [06 - ImpEx →](06-impex.md)

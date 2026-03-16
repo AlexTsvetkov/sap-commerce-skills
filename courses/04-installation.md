@@ -488,5 +488,5 @@ ccv2 deployment create --build-code BUILD123 --environment-code dev
 
 ---
 
-**Previous Course**: [← 03 - Extensions](../03-extensions/README.md)  
-**Next Course**: [05 - Service Layer & Business Logic →](../05-service-layer/README.md)
+**Previous Course**: [← 03 - Extensions](03-extensions.md)  
+**Next Course**: [05 - Service Layer & Business Logic →](05-service-layer.md)

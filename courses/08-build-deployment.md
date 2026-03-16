@@ -188,4 +188,4 @@ pipeline {
    </details>
 
 ---
-**Previous**: [← 07 - Storefront & OCC](../07-storefront-occ/README.md) | **Next**: [09 - Performance & Caching →](../09-performance/README.md)
+**Previous**: [← 07 - Storefront & OCC](07-storefront-occ.md) | **Next**: [09 - Performance & Caching →](09-performance.md)

@@ -200,4 +200,4 @@ Key FlexibleSearch tips:
    </details>
 
 ---
-**Previous**: [← 08 - Build & Deployment](../08-build-deployment/README.md) | **Next**: [10 - Order Management →](../10-order-management/README.md)
+**Previous**: [← 08 - Build & Deployment](08-build-deployment.md) | **Next**: [10 - Order Management →](10-order-management.md)

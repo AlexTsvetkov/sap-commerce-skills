@@ -10,18 +10,18 @@ A comprehensive knowledge base for SAP Commerce Cloud (Hybris) covering training
 
 | # | Course | Duration | Topics |
 |---|--------|----------|--------|
-| 01 | [Architecture](courses/01-architecture/README.md) | 4-6 hrs | Platform overview, layers, extension model, Spring integration |
-| 02 | [Type System](courses/02-type-system/README.md) | 6-8 hrs | items.xml, ItemTypes, Relations, Enums, generated models |
-| 03 | [Extensions](courses/03-extensions/README.md) | 4-6 hrs | Extension types, creation, dependencies, AddOns, templates |
-| 04 | [Installation & Setup](courses/04-installation/README.md) | 4-6 hrs | Local install, recipes, DB config, IDE setup, CCv2 |
-| 05 | [Service Layer](courses/05-service-layer/README.md) | 6-8 hrs | Services, DAOs, Interceptors, Events, FlexibleSearch |
-| 06 | [ImpEx & Data Management](courses/06-impex/README.md) | 4-6 hrs | ImpEx syntax, macros, translators, hotfolder, data migration |
-| 07 | [Storefront & OCC API](courses/07-storefront-occ/README.md) | 6-8 hrs | Spartacus, OCC REST API, CMS, SmartEdit, SSR |
-| 08 | [Build & Deployment](courses/08-build-deployment/README.md) | 4-6 hrs | CCv2, manifest.json, CI/CD, environments, monitoring |
-| 09 | [Performance & Caching](courses/09-performance/README.md) | 4-6 hrs | Caching, Solr search, DB optimization, load testing |
-| 10 | [Order Management](courses/10-order-management/README.md) | 4-6 hrs | Order process, fulfillment, payment, returns, business process engine |
-| 11 | [B2B Commerce](courses/11-b2b-commerce/README.md) | 6-8 hrs | Organizations, approvals, punchout, quotes, B2B checkout |
-| 12 | [Backoffice & Security](courses/12-backoffice-security/README.md) | 4-6 hrs | Backoffice framework, custom widgets, user roles, security |
+| 01 | [Architecture](courses/01-architecture.md) | 4-6 hrs | Platform overview, layers, extension model, Spring integration |
+| 02 | [Type System](courses/02-type-system.md) | 6-8 hrs | items.xml, ItemTypes, Relations, Enums, generated models |
+| 03 | [Extensions](courses/03-extensions.md) | 4-6 hrs | Extension types, creation, dependencies, AddOns, templates |
+| 04 | [Installation & Setup](courses/04-installation.md) | 4-6 hrs | Local install, recipes, DB config, IDE setup, CCv2 |
+| 05 | [Service Layer](courses/05-service-layer.md) | 6-8 hrs | Services, DAOs, Interceptors, Events, FlexibleSearch |
+| 06 | [ImpEx & Data Management](courses/06-impex.md) | 4-6 hrs | ImpEx syntax, macros, translators, hotfolder, data migration |
+| 07 | [Storefront & OCC API](courses/07-storefront-occ.md) | 6-8 hrs | Spartacus, OCC REST API, CMS, SmartEdit, SSR |
+| 08 | [Build & Deployment](courses/08-build-deployment.md) | 4-6 hrs | CCv2, manifest.json, CI/CD, environments, monitoring |
+| 09 | [Performance & Caching](courses/09-performance.md) | 4-6 hrs | Caching, Solr search, DB optimization, load testing |
+| 10 | [Order Management](courses/10-order-management.md) | 4-6 hrs | Order process, fulfillment, payment, returns, business process engine |
+| 11 | [B2B Commerce](courses/11-b2b-commerce.md) | 6-8 hrs | Organizations, approvals, punchout, quotes, B2B checkout |
+| 12 | [Backoffice & Security](courses/12-backoffice-security.md) | 4-6 hrs | Backoffice framework, custom widgets, user roles, security |
 
 **Total estimated learning time: 60-80 hours**
 
@@ -65,18 +65,18 @@ Technical guides for integrating SAP Commerce with S/4HANA and other systems.
 sap-commerce-skills/
 ├── README.md                          ← You are here
 ├── courses/
-│   ├── 01-architecture/README.md
-│   ├── 02-type-system/README.md
-│   ├── 03-extensions/README.md
-│   ├── 04-installation/README.md
-│   ├── 05-service-layer/README.md
-│   ├── 06-impex/README.md
-│   ├── 07-storefront-occ/README.md
-│   ├── 08-build-deployment/README.md
-│   ├── 09-performance/README.md
-│   ├── 10-order-management/README.md
-│   ├── 11-b2b-commerce/README.md
-│   └── 12-backoffice-security/README.md
+│   ├── 01-architecture.md
+│   ├── 02-type-system.md
+│   ├── 03-extensions.md
+│   ├── 04-installation.md
+│   ├── 05-service-layer.md
+│   ├── 06-impex.md
+│   ├── 07-storefront-occ.md
+│   ├── 08-build-deployment.md
+│   ├── 09-performance.md
+│   ├── 10-order-management.md
+│   ├── 11-b2b-commerce.md
+│   └── 12-backoffice-security.md
 ├── training-project/
 │   └── README.md
 ├── pre-sale/
@@ -93,7 +93,7 @@ sap-commerce-skills/
 
 ## 🚀 Getting Started
 
-1. **New to Commerce?** Start with [Course 01 — Architecture](courses/01-architecture/README.md)
+1. **New to Commerce?** Start with [Course 01 — Architecture](courses/01-architecture.md)
 2. **Want hands-on?** Jump to the [Training Project](training-project/README.md)
 3. **Preparing for a client pitch?** Check the [Pre-Sale Materials](pre-sale/)
 4. **Planning an integration?** Read the [Integration Docs](integrations/)

@@ -170,4 +170,4 @@ public class MyPageController extends AbstractPageController {
    </details>
 
 ---
-**Previous**: [← 06 - ImpEx](../06-impex/README.md) | **Next**: [08 - Build & Deployment →](../08-build-deployment/README.md)
+**Previous**: [← 06 - ImpEx](06-impex.md) | **Next**: [08 - Build & Deployment →](08-build-deployment.md)

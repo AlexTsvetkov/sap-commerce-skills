@@ -189,4 +189,4 @@ refundEntry.setReturnRequest(returnRequest);
    </details>
 
 ---
-**Previous**: [← 09 - Performance](../09-performance/README.md) | **Next**: [11 - B2B Commerce →](../11-b2b-commerce/README.md)
+**Previous**: [← 09 - Performance](09-performance.md) | **Next**: [11 - B2B Commerce →](11-b2b-commerce.md)

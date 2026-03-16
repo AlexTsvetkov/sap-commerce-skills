@@ -153,4 +153,4 @@ INSERT_UPDATE Product;code;name[lang=en];price
    </details>
 
 ---
-**Previous**: [← 05 - Service Layer](../05-service-layer/README.md) | **Next**: [07 - Storefront & OCC →](../07-storefront-occ/README.md)
+**Previous**: [← 05 - Service Layer](05-service-layer.md) | **Next**: [07 - Storefront & OCC →](07-storefront-occ.md)

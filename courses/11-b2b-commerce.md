@@ -170,4 +170,4 @@ Key extensions: `b2bpunchout`, `b2bpunchoutaddon`, `b2bpunchoutocctests`
    </details>
 
 ---
-**Previous**: [← 10 - Order Management](../10-order-management/README.md) | **Next**: [12 - Backoffice & Security →](../12-backoffice-security/README.md)
+**Previous**: [← 10 - Order Management](10-order-management.md) | **Next**: [12 - Backoffice & Security →](12-backoffice-security.md)

@@ -6,7 +6,7 @@ Extensions are the fundamental modularization unit in SAP Commerce. This course 
 
 **Duration**: 6-8 hours  
 **Level**: Intermediate  
-**Prerequisites**: [Course 01: Architecture](../01-architecture/README.md), [Course 02: Type System](../02-type-system/README.md)
+**Prerequisites**: [Course 01: Architecture](01-architecture.md), [Course 02: Type System](02-type-system.md)
 
 ---
 
@@ -873,5 +873,5 @@ Dependencies are downloaded to `myprojectcore/lib/`.
 
 ---
 
-**Previous Course**: [← 02 - Type System](../02-type-system/README.md)  
-**Next Course**: [04 - Installation & Setup →](../04-installation/README.md)
+**Previous Course**: [← 02 - Type System](02-type-system.md)  
+**Next Course**: [04 - Installation & Setup →](04-installation.md)

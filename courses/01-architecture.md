@@ -879,4 +879,4 @@ Aspects define how the application is deployed across pods:
 
 ---
 
-**Next Course**: [02 - Type System & Data Modeling →](../02-type-system/README.md)
+**Next Course**: [02 - Type System & Data Modeling →](02-type-system.md)
